@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import Button from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
@@ -15,7 +14,6 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [done, setDone] = useState(false)
-  const router = useRouter()
   const supabase = createClient()
 
   async function handleSignup(e: React.FormEvent) {
@@ -45,8 +43,16 @@ export default function SignupPage() {
         city,
         role: 'user',
       })
+
+      // Email confirmation is disabled — sign in immediately and go to onboarding
+      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
+      if (!signInError) {
+        window.location.href = '/onboarding'
+        return
+      }
     }
 
+    // Fallback: if sign-in failed (e.g. confirmation still required), show the check-email screen
     setDone(true)
     setLoading(false)
   }
@@ -81,7 +87,7 @@ export default function SignupPage() {
         <div className="forge-card">
           <h2 className="text-xl font-bold text-gray-900 mb-2">Create your account</h2>
           <p className="text-sm text-gray-500 mb-6">
-            Step one of two. After this, you'll complete your values profile.
+            Step one of two. After this, you&apos;ll complete your values profile.
           </p>
 
           <form onSubmit={handleSignup} className="flex flex-col gap-4">
