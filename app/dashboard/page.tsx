@@ -17,7 +17,7 @@ export default async function DashboardPage() {
     .eq('user_id', user.id)
     .single() as { data: Profile | null }
 
-  if (!profile) redirect('/login')
+  if (!profile) redirect('/onboarding')
   if (profile.role === 'curator') redirect('/curator')
 
   // If values assessment not done, redirect to onboarding
@@ -66,7 +66,7 @@ export default async function DashboardPage() {
         <h1 className="text-2xl font-bold text-gray-900 mb-1">
           Hello, {profile.full_name.split(' ')[0]}
         </h1>
-        <p className="text-gray-500 text-sm mb-8">Here's where your Forge journey stands.</p>
+        <p className="text-gray-500 text-sm mb-8">Here&apos;s where your Forge journey stands.</p>
 
         {/* Status card */}
         {!match && (
@@ -77,7 +77,7 @@ export default async function DashboardPage() {
                 <h2 className="font-semibold text-gray-900 mb-1">Waiting for your match</h2>
                 <p className="text-sm text-gray-500">
                   Your values profile is complete. Our curators are finding the right partner for you.
-                  You'll receive an email when your match is ready.
+                  You&apos;ll receive an email when your match is ready.
                 </p>
               </div>
             </div>
@@ -89,10 +89,10 @@ export default async function DashboardPage() {
             <div className="flex items-start gap-4">
               <div className="text-3xl">🤝</div>
               <div>
-                <h2 className="font-semibold text-gray-900 mb-1">You've been matched!</h2>
+                <h2 className="font-semibold text-gray-900 mb-1">You&apos;ve been matched!</h2>
                 <p className="text-sm text-gray-500">
                   {partner?.full_name} is your partner. Your curator is now designing your adventure.
-                  Sit tight — you'll hear from us soon.
+                  Sit tight — you&apos;ll hear from us soon.
                 </p>
               </div>
             </div>
@@ -126,7 +126,7 @@ export default async function DashboardPage() {
               <div>
                 <h2 className="font-semibold text-gray-900 mb-2">Adventure in progress</h2>
                 <p className="text-sm text-gray-500 mb-4">
-                  You're in it. When the adventure is complete, come back here to submit your debrief.
+                  You&apos;re in it. When the adventure is complete, come back here to submit your debrief.
                 </p>
                 <div className="flex gap-3">
                   <Link href={`/adventure/${adventure.id}`} className="forge-btn-secondary inline-block">
@@ -149,7 +149,7 @@ export default async function DashboardPage() {
                 <h2 className="font-semibold text-gray-900 mb-1">Debrief submitted</h2>
                 <p className="text-sm text-gray-500">
                   Your debrief is in. Your curator is working on your compatibility report.
-                  It'll be ready within 48 hours.
+                  It&apos;ll be ready within 48 hours.
                 </p>
               </div>
             </div>
